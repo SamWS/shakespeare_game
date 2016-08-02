@@ -1,0 +1,14 @@
+<h1>shaka-speare</h1>
+
+<%   if current_user.admin == true %>
+<a href="/games/new">new quote</a>
+<%  end %>
+
+<% @games.each do |game| %>
+<h3><%= game.play %></h3>
+<h4>"<%= game.quote %>"</h4>
+<h4><%= game.character %></h4>
+<% if current_user.admin == true %>
+<a href="/games/<%= game.id %>">edit quote</a>
+<% end %>
+<% end %>

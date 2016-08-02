@@ -1,0 +1,13 @@
+<form action="/games/<%= @game.id %>/edit" method="post">
+  <input type="hidden" name="_method" value="put">
+  <label for="">play</label>
+  <input type="text" name="play" value="<%= @game.play %>">
+
+  <label for="">quote</label>
+  <input type="text" name="quote" value="<%= @game.quote %>">
+
+  <label for="">character</label>
+  <input type="text" name="character" value="<%= @game.character %>">
+
+  <button>update</button>
+</form>
