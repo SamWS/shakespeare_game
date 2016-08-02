@@ -1,16 +1,34 @@
 CREATE DATABASE shakespeare;
 
-CREATE TABLE games(
+######## WASTE OF F&*CKING TIME
+-- CREATE TABLE games(
+--   id SERIAL4 PRIMARY KEY,
+--   play VARCHAR(100) NOT NULL,
+--   quote VARCHAR(500) NOT NULL,
+--   character VARCHAR(100) NOT NULL
+-- );
+--
+-- INSERT INTO games (play, quote, character) VALUES ('Richard III', 'My Kingdom for a Horse', 'Richard III');
+
+CREATE TABLE plays(
   id SERIAL4 PRIMARY KEY,
-  play VARCHAR(100) NOT NULL,
-  quote VARCHAR(500) NOT NULL,
-  character VARCHAR(100) NOT NULL
+  title VARCHAR(100)
 );
 
-INSERT INTO games (play, quote, character) VALUES ('Richard III', 'My Kingdom for a Horse', 'Richard III');
+INSERT INTO plays (title) VALUES ('Richard III');
 
+#####
 
+CREATE TABLE quotes(
+  id SERIAL4 PRIMARY KEY,
+  script VARCHAR(500),
+  character VARCHAR(100),
+  play_id INTEGER
+);
 
+INSERT INTO quotes (script, character, play_id) VALUES ('My Kingdom for a horse', 'Richard III', 1)
+
+#####
 
 CREATE TABLE users(
   id SERIAL4 PRIMARY KEY,

@@ -1,20 +1,20 @@
-<form action="/user/<%= @user.id %>" method="post">
+<form action="/user/<%= @current_user.id %>" method="post">
   <input type="hidden" name="_method" value="put">
   <label for="">name</label>
-  <input type="text" name="name" value="<%= @user.name %>">
+  <input type="text" name="name" value="<%= @current_user.name %>">
 
   <label for="">email</label>
-  <input type="text" name="email" value="<%= @user.email %>">
+  <input type="text" name="email" value="<%= @current_user.email %>">
 
   <label for="">password</label>
-  <input type="text" name="password" value="<%= @user.password %>">
+  <input type="text" name="password" value="<%= @current_user.password %>">
 
   <button>update</button>
 </form>
 
-<form action="/user/<%= @user.id %>" method="post">
+<form action="/user/<%= @current_user.id %>" method="post">
   <input type="hidden" name="_method" value="delete">
-  <% if current_user.admin != true %>
+  <% if @current_user.admin? %>
   <button>delete</button>
   <% end %>
 </form>

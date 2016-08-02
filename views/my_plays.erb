@@ -1,0 +1,12 @@
+<h1>shaka-speare</h1>
+
+<%  if @current_user.admin? %>
+<a href="/plays/new">new play</a>
+<%  end %>
+
+<% @plays.each do |play| %>
+<h3>Play:<%= play.title %></h3>
+<% if @current_user.admin? %>
+  <a href="/plays/<%= play.id %>/edit">edit play</a>
+<% end %>
+<% end %>

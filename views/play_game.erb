@@ -1,12 +1,12 @@
 <p>you're playing the shakespeare game!</p>
 
 <p>
-  <%= @game.quote %>
+  Quote:  <%= @quote.script %>
 </p>
 
 <ul>
-  <li> <%= @game.play %></li>
-  <li> <%= @randomGame1.play %></li>
-  <li> <%= @randomGame2.play %></li>
-  <li> <%= @randomGame3.play %></li>
+   <% @unshuffled_list.shuffle.each do |play| %>
+      <li>  <%= play.title %> </li>
+   <% end %>
+
 </ul>

@@ -1,5 +1,5 @@
-<h2>Hello <%= current_user.name%></h2>
-<a href="/user/<%= current_user.id %>">edit account</a>
+<h2>Hello <%= @current_user.name%></h2>
+<a href="/user/<%= @current_user.id %>">edit account</a>
 
 <h3>play the shakespeare quote game</h3>
 <form action="/play_game">
@@ -7,4 +7,5 @@
 </form>
 
 
+<a href="/my_plays">view plays</a>
 <a href="/my_quotes">view quotes</a>

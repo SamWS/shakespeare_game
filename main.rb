@@ -4,32 +4,21 @@ require 'active_record'
 require 'pry'
 
 require_relative 'db_config'
-require_relative 'models/game'
 require_relative 'models/user'
+require_relative 'models/quote'
+require_relative 'models/play'
 
 enable :sessions
 
-helpers do
-
-  def logged_in?
-    if User.find_by(id: session[:id])
-      return true
-    else
-      return false
-    end
-  end
-
-  def current_user
-    User.find(session[:id])
-  end
-
-end
 
 get '/' do
-  if !logged_in?
-    redirect '/session/new'
+  @current_user = User.current_user(session)
+
+  if !User.logged_in?(session)
+    redirect to('/login')
+  else
+    erb :index
   end
-  erb :index
 end
 
 get '/login' do
@@ -44,8 +33,26 @@ get '/forgot_password' do
   erb :forgot_password
 end
 
-get '/games/new' do
-  erb :new
+get '/quotes/new' do
+  @current_user = User.current_user(session)
+
+  if @current_user.admin?
+    erb :new_quote
+  else
+    erb :my_quotes
+  end
+
+end
+
+get '/plays/new' do
+  @current_user = User.current_user(session)
+
+  if @current_user.admin?
+    erb :new_play
+  else
+    erb :my_plays
+  end
+
 end
 ################
 post '/user' do
@@ -62,7 +69,7 @@ post '/user' do
 end
 
 get '/user/:id' do
-  @user = User.find(params[:id])
+  @current_user = User.current_user(session)
 
   erb :account_edit
 end
@@ -89,47 +96,98 @@ delete '/user/:id' do
 end
 
 ################
-post '/games' do
+post '/plays' do
+  @current_user = User.current_user(session)
 
-  if !logged_in?
+  if !User.logged_in?(session)
     redirect to '/session/new'
   end
 
-  games = Game.new
-  games.play = params[:play]
-  games.quote = params[:quote]
-  games.character = params[:character]
-  games.save
+  play = Play.new
+  play.title = params[:title]
+  play.save
+  redirect to '/my_plays'
+end
+
+get '/plays/:id/edit' do
+  @play = Play.find(params[:id])
+  erb :plays_edit
+
+end
+
+delete '/plays/:id' do
+  play = Play.destroy(params[:id])
+
+  redirect to '/my_plays'
+end
+
+put '/plays/:id' do
+  if !User.logged_in?(session)
+    redirect to '/session/new'
+  end
+
+  play = Play.find(params[:id])
+  play.title = params[:title]
+  play.save
+
+  redirect to '/my_plays'
+  erb :my_plays
+end
+
+delete '/plays/:id' do
+  play = Play.destroy(params[:id])
+
+  redirect to '/my_plays'
+end
+
+###############
+
+post '/quotes' do
+
+  if !User.logged_in?(session)
+    redirect to '/session/new'
+  end
+
+  quote = Quote.new
+  quote.script = params[:script]
+  quote.character = params[:character]
+  quote.play_id = params[:play_id]
+  quote.save
   redirect to '/my_quotes'
 end
 
-get '/games/:id/edit' do
-  @game = Game.find(params[:id])
+get '/quotes/:id/edit' do
+  @quote = Quote.find(params[:id])
 
-  erb :game_edit
+  erb :quotes_edit
 end
 
-put '/games/:id' do
-  if !logged_in?
+
+put '/quotes/:id' do
+  if !User.logged_in?(session)
     redirect to '/session/new'
   end
 
 
-  games = Game.find(params[:id])
-  games.play = params[:play]
-  games.quote = params[:quote]
-  games.character = params[:character]
-  games.save
+  quote = Quote.find(params[:id])
+  quote.script = params[:script]
+  quote.character = params[:character]
+  quote.play_id = params[:play_id]
+  quote.save
 
   redirect to '/my_quotes'
   erb :my_quotes
 end
 
-delete '/games/:id' do
-  games = Game.destroy(params[:id])
 
-  redirect to '/'
+delete '/quotes/:id' do
+  quote = Quote.destroy(params[:id])
+
+  redirect to '/my_quotes'
 end
+
+
+#####################
 
 get '/session/new' do
   erb :login
@@ -152,15 +210,23 @@ delete '/session' do
 end
 
 get '/my_quotes' do
-  @games = Game.all
+  @quotes = Quote.all
+  @current_user = User.current_user(session)
 
   erb :my_quotes
 end
 
+get '/my_plays' do
+  @plays = Play.all
+  @current_user = User.current_user(session)
+
+  erb :my_plays
+end
+
 get '/play_game' do
-  @game = Game.all.sample
-  @randomGame1 = Game.all.sample
-  @randomGame2 = Game.all.sample
-  @randomGame3 = Game.all.sample
+  @quote = Quote.all.sample
+  @play_title = Play.all.where(id: @quote.play_id)
+  @randomPlays = (Play.all - Play.where(id: @quote.play_id)).shuffle.take(3)
+  @unshuffled_list = @play_title + @randomPlays
   erb :play_game
 end
