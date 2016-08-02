@@ -9,6 +9,6 @@
 <h4>"<%= game.quote %>"</h4>
 <h4><%= game.character %></h4>
 <% if current_user.admin == true %>
-<a href="/games/<%= game.id %>">edit quote</a>
+<a href="/games/<%= game.id %>/edit">edit quote</a>
 <% end %>
 <% end %>

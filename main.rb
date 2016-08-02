@@ -103,12 +103,6 @@ post '/games' do
   redirect to '/my_quotes'
 end
 
-get '/games/:id' do
-  @game = Game.find(params[:id])
-
-  erb :show
-end
-
 get '/games/:id/edit' do
   @game = Game.find(params[:id])
 
@@ -161,4 +155,12 @@ get '/my_quotes' do
   @games = Game.all
 
   erb :my_quotes
+end
+
+get '/play_game' do
+  @game = Game.all.sample
+  @randomGame1 = Game.all.sample
+  @randomGame2 = Game.all.sample
+  @randomGame3 = Game.all.sample
+  erb :play_game
 end
