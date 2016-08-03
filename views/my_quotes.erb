@@ -1,13 +1,13 @@
 <h1>shaka-speare</h1>
 
-<%   if @current_user.admin? %>
+<% if @current_user.admin? %>
 <a href="/quotes/new">new quote</a>
-<%  end %>
+<% end %>
 
 <% @quotes.each do |quote| %>
-<h3>Quote:<%= quote.script %></h3>
-<h4>Said by:<%= quote.character %></h4>
-<h4>From the play:<%= quote.play.title %></h4>
+<h3>Quote: "<%= quote.script %>"</h3>
+<h4>Said by: <%= quote.character %></h4>
+<h4>From the play: <%= quote.play.title %></h4>
 <% if @current_user.admin? %>
   <a href="/quotes/<%= quote.id %>/edit">edit quote</a>
 <% end %>

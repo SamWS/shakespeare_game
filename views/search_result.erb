@@ -1,0 +1,18 @@
+<form action="/search_result">
+  <label for="search">Search Again: </label>
+  <input type="text" name="search">
+
+  <button>search</button>
+</form>
+
+
+<h2>You searched for: <%= @search_params %> </h2>
+
+<% if @relevant_quotes.empty?  %>
+  Stop trying to break my code.
+<% else %>
+  <% @relevant_quotes.each do |quote| %>
+    <h4> Character: <%=quote.character %> </h4>
+    <h3> Quote: <%=quote.script %> </h3>
+  <% end %>
+<% end %>

@@ -14,7 +14,5 @@
 
 <form action="/user/<%= @current_user.id %>" method="post">
   <input type="hidden" name="_method" value="delete">
-  <% if @current_user.admin? %>
   <button>delete</button>
-  <% end %>
 </form>

@@ -10,13 +10,31 @@ require_relative 'models/play'
 
 enable :sessions
 
+helpers do
+
+  def logged_in?(session)
+    if User.find_by(id: session[:id])
+      return true
+    else
+      return false
+    end
+  end
+
+  def current_user
+    User.find(session[:id])
+  end
+
+
+end
+
+############################
 
 get '/' do
-  @current_user = User.current_user(session)
 
-  if !User.logged_in?(session)
-    redirect to('/login')
+  if !logged_in?(session)
+    redirect to '/login'
   else
+    @current_user = current_user
     erb :index
   end
 end
@@ -34,27 +52,29 @@ get '/forgot_password' do
 end
 
 get '/quotes/new' do
-  @current_user = User.current_user(session)
+  @current_user = current_user
 
-  if @current_user.admin?
-    erb :new_quote
-  else
-    erb :my_quotes
+  if !@current_user.admin?
+    redirect to '/'
   end
+
+  erb :new_quote
 
 end
 
 get '/plays/new' do
-  @current_user = User.current_user(session)
+  @current_user = current_user
 
-  if @current_user.admin?
-    erb :new_play
-  else
-    erb :my_plays
+  if !@current_user.admin?
+    redirect to '/'
   end
 
+  erb :new_play
+
 end
-################
+
+###########################
+
 post '/user' do
   user = User.new
   user.name = params[:name]
@@ -69,13 +89,21 @@ post '/user' do
 end
 
 get '/user/:id' do
-  @current_user = User.current_user(session)
+
+  @current_user = current_user
+
+  if !logged_in?(session)
+    redirect to '/session/new'
+  end
 
   erb :account_edit
 end
 
 put '/user/:id' do
-  if !logged_in?
+
+  @current_user = current_user
+
+  if !logged_in?(session)
     redirect to '/session/new'
   end
 
@@ -90,14 +118,21 @@ put '/user/:id' do
 end
 
 delete '/user/:id' do
+
+  @current_user = current_user
+
+  if !logged_in?(session)
+    redirect to '/session/new'
+  end
+
   user = User.destroy(params[:id])
 
   redirect to '/'
 end
 
-################
+###########################
+
 post '/plays' do
-  @current_user = User.current_user(session)
 
   if !User.logged_in?(session)
     redirect to '/session/new'
@@ -111,17 +146,18 @@ end
 
 get '/plays/:id/edit' do
   @play = Play.find(params[:id])
+  @current_user = current_user
+
+  if !@current_user.admin?
+    redirect to '/'
+  end
+
   erb :plays_edit
 
 end
 
-delete '/plays/:id' do
-  play = Play.destroy(params[:id])
-
-  redirect to '/my_plays'
-end
-
 put '/plays/:id' do
+
   if !User.logged_in?(session)
     redirect to '/session/new'
   end
@@ -135,12 +171,13 @@ put '/plays/:id' do
 end
 
 delete '/plays/:id' do
+
   play = Play.destroy(params[:id])
 
   redirect to '/my_plays'
 end
 
-###############
+##############################
 
 post '/quotes' do
 
@@ -158,6 +195,12 @@ end
 
 get '/quotes/:id/edit' do
   @quote = Quote.find(params[:id])
+
+  @current_user = current_user
+
+  if !@current_user.admin?
+    redirect to '/'
+  end
 
   erb :quotes_edit
 end
@@ -186,6 +229,29 @@ delete '/quotes/:id' do
   redirect to '/my_quotes'
 end
 
+#####################
+
+get '/search' do
+  erb :search
+end
+
+get '/search/:play_id' do
+
+
+  idOfPlay = Play.id
+  @result = Quote.all.where(play_id: idOfPlay)
+
+  erb :search_result
+end
+
+get '/search_result' do
+  @search_params = params['search']
+  play_id = Play.all.where(title: @search_params)
+
+  @relevant_quotes = Quote.all.where(play_id: play_id)
+
+  erb :search_result
+end
 
 #####################
 
@@ -209,24 +275,62 @@ delete '/session' do
   redirect to '/session/new'
 end
 
+############################
+
 get '/my_quotes' do
   @quotes = Quote.all
-  @current_user = User.current_user(session)
+  @current_user = current_user
 
   erb :my_quotes
 end
 
 get '/my_plays' do
+  @current_user = current_user
   @plays = Play.all
-  @current_user = User.current_user(session)
 
   erb :my_plays
 end
 
+##############################
+
 get '/play_game' do
+
   @quote = Quote.all.sample
   @play_title = Play.all.where(id: @quote.play_id)
   @randomPlays = (Play.all - Play.where(id: @quote.play_id)).shuffle.take(3)
   @unshuffled_list = @play_title + @randomPlays
   erb :play_game
+end
+
+get '/finished_game/:quote_play_id/:play_id' do
+
+  quote_play_id = params[:quote_play_id]
+  play_id = params[:play_id]
+
+  if quote_play_id == play_id
+    # session[:score] = session[:score] + 1
+    redirect to '/answer_correct'
+  else
+    redirect to '/answer_incorrect'
+  end
+
+end
+
+get '/answer_correct' do
+
+  @quote = Quote.all.sample
+  @play_title = Play.all.where(id: @quote.play_id)
+  @randomPlays = (Play.all - Play.where(id: @quote.play_id)).shuffle.take(3)
+  @unshuffled_list = @play_title + @randomPlays
+
+  erb :answer_correct
+end
+
+get '/answer_incorrect' do
+  @quote = Quote.all.sample
+  @play_title = Play.all.where(id: @quote.play_id)
+  @randomPlays = (Play.all - Play.where(id: @quote.play_id)).shuffle.take(3)
+  @unshuffled_list = @play_title + @randomPlays
+
+  erb :answer_incorrect
 end

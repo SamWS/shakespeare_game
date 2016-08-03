@@ -1,0 +1,21 @@
+#pageHeading {
+  text-align: center;
+  color: darkgreen;
+  background-color: gold;
+  text-decoration: none;
+}
+
+#headingDiv {
+  margin: 0 auto 0 auto;
+  text-align: center;
+}
+
+#logoutBtn {
+  text-align: left;
+  vertical-align: top;
+  display: inline-block;
+}
+
+#navBar {
+  text-decoration: none;
+}

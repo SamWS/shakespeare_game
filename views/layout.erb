@@ -1,16 +1,24 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Shakespeare Game</title>
-  <link rel='stylesheet' href='/stylesheets/main.css'>
-</head>
-<body>
-  <h1><a href="/">Shakespeare Game</a></h1>
-  <form action="/session" method = "post">
-  <input type="hidden" name ="_method" value='delete'>
-    <button>logout</button>
-</form>
-  <%= yield %>
+    <head>
+        <meta charset="UTF-8">
+        <title>Shakespeare Game</title>
+        <link rel='stylesheet' href='/stylesheets/main.css'>
+    </head>
+    <body>
+        <div id="headingDiv">
 
-</body>
+            <h1>
+                <a id="pageHeading" href="/">Shakespeare Game</a>
+            </h1>
+
+        </div>
+
+        <form action="/session" method="post">
+            <input type="hidden" name="_method" value='delete'>
+            <button id="logoutBtn">logout</button>
+        </form>
+
+        <%= yield %>
+
+    </body>

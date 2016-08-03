@@ -15,6 +15,8 @@ CREATE TABLE plays(
   title VARCHAR(100)
 );
 
+ALTER TABLE plays ADD user_id INTEGER;
+
 INSERT INTO plays (title) VALUES ('Richard III');
 
 #####
