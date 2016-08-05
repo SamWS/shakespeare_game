@@ -41,4 +41,5 @@ CREATE TABLE users(
   admin BOOLEAN
 );
 
+ALTER TABLE users ADD current_score INTEGER;
 -- ALTER TABLE dishes ADD user_id INTEGER;

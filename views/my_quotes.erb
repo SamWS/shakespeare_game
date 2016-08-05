@@ -1,14 +1,22 @@
-<h1>shaka-speare</h1>
+<div class="playsPage">
+
+  <h3 class="h3heading">The Quotes of Shakespeare included in this game are below</h3>
+
+  <div class="playsContent">
 
 <% if @current_user.admin? %>
-<a href="/quotes/new">new quote</a>
+<a class="newPlayLink" href="/quotes/new">new quote</a>
 <% end %>
 
 <% @quotes.each do |quote| %>
-<h3>Quote: "<%= quote.script %>"</h3>
+<h4 class="playsQuotesList">Quote: "<%= quote.script %>"</h4>
 <h4>Said by: <%= quote.character %></h4>
 <h4>From the play: <%= quote.play.title %></h4>
 <% if @current_user.admin? %>
-  <a href="/quotes/<%= quote.id %>/edit">edit quote</a>
+  <a class="playsLink" href="/quotes/<%= quote.id %>/edit">edit quote</a>
 <% end %>
 <% end %>
+
+</div>
+
+</div>

@@ -1,8 +1,41 @@
+
+
+
+
+
+
+body {
+  background-color: #706F6F;
+  font-family: 'Cabin', sans-serif;
+}
+
+.playQuoteInputEdit {
+  text-align: center;
+  margin-top: 5em;
+}
+
+/* below is the css for the layout/index page */
+
+#topOfPage {
+  background-image: url(http://image.pbs.org/video-assets/pbs/shakespeare-uncovered/68945/images/Mezzanine_258.png);
+  background-size: cover;
+  height: 7.5em;
+  border: 2px solid #001A23;
+  padding-bottom: 1em;
+}
+
+#topOfPage img {
+  width: 100%;
+}
+
 #pageHeading {
   text-align: center;
-  color: darkgreen;
-  background-color: gold;
+  color: #E8F1F2;
+  background-color: #001A23;
   text-decoration: none;
+  padding: 0.38em;
+  font-size: 1.1em;
+  border: 2px solid #E8F1F2;
 }
 
 #headingDiv {
@@ -11,11 +44,244 @@
 }
 
 #logoutBtn {
+  margin-left: 1em;
+  margin-top: 1em;
   text-align: left;
   vertical-align: top;
   display: inline-block;
 }
 
 #navBar {
+  border: 1px solid #E8F1F2;
+  background-color: #1C2321;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-align: center;
+  padding-left: 0.5em;
+}
+
+.navLink {
+  padding: 0.2em 0.5em;
+  border-left: 1px solid #E8F1F2;
+  border-right: 1px solid #E8F1F2;
+  color: #E8F1F2;
+}
+
+#indexPageContents {
+  text-align: center;
+  margin-top: 2em;
+}
+
+#playBtn {
+  font-size: 2em;
+  border: 4px solid #001A23;
+  padding: 0.8em 1.5em 1em 1.5em;
+  border-radius: 50%;
+  background-color: #BFD8BD;
+}
+
+#playBtn:hover {
+  background-color: #E8F1F2;
+}
+
+.indexH2 {
+  font-size: 1.7em;
+  color: #E8F1F2;
+  text-shadow: 3px 3px #001A23;
+}
+
+/* below is all the css for the login page */
+
+
+#loginMain {
+  margin-top: 5em;
+  text-align: center;
+}
+
+.loginLabel {
+  padding: 0.3em;
+}
+
+#loginLinkDiv {
+  margin-top: 2em;
+}
+.loginLinks {
+  color: #EBF1F2;
+  padding: 0.6em;
+}
+
+.loginLabel {
+  color: #1C2321;
+  font-weight: bold;
+}
+
+/* below is all the css for the sign up page */
+
+#signUpInputs {
+  text-align: center;
+  margin-top: 5em;
+}
+
+.signUpLabel {
+  font-weight: bold;
+  color: #1C2321;
+}
+
+/* below is the css for the play_game page */
+
+.playGameContent {
+  text-align: center;
+}
+
+.gameContent {
+  text-align: center;
+}
+
+.gameQuote {
+  padding-left: 20%;
+  text-align: left;
+  color: #EBF1F2;
+  padding-bottom: none;
+  margin-bottom: none;
+}
+
+#answerLink {
   text-decoration: none;
+  color: #1C2321;
+}
+
+#quoteUnordered {
+  padding: 0.3em 2em;
+  display: inline-block;
+  list-style-type: none;
+}
+
+.quoteList {
+  padding: 1em;
+  border: 3px solid #001A23;
+  background-color: #BFD8BD;
+}
+
+.quoteList:hover {
+  background-color: #E8F1F2;
+}
+
+.quotePlay {
+  color: #EBF1F2;
+  font-size: 1.2em;
+  padding-bottom: none;
+  margin-bottom: none;
+}
+
+.scores {
+  font-size: 1.2em;
+}
+
+.answer {
+  display: inline-block;
+  border-right: 1px solid #BFD8BD;
+  padding-right: 0.5em;
+  margin-right: 0.5em;
+}
+
+#resetPassword {
+  text-align: center;
+  margin-top: 5em;
+  color: #EBF1F2;
+}
+
+/* this is the account edit page css */
+
+#accountEdit {
+  margin-top: 4em;
+  margin-left: 5em;
+}
+
+.deleteBtn {
+  margin-top: 18em;
+}
+
+.deleteInput {
+  text-align: left;
+}
+
+#editInputs {
+  text-align: center;
+}
+
+/* this is the search page css */
+
+.playsQuotesList {
+  border-top: 1px solid #BFD8BD;
+  padding-top: 0.5em;
+  margin-right: 5em;
+}
+
+#searchContent {
+  margin-top: 6em;
+}
+
+#searchInput {
+  text-align: center;
+}
+
+#searchInvalid {
+  margin-top: 2em;
+}
+
+/* this is the css of the plays list page */
+
+.h3heading {
+  text-align: center;
+}
+
+.playsContent {
+  text-align: left;
+  margin-left: 20%;
+}
+
+.playsLink {
+  color: #EBF1F2;
+  text-decoration: none;
+  border-bottom: 1px solid #BFD8BD;
+  padding-bottom: 0.4em;
+  padding-left: 3em;
+  padding-right: 3em;
+}
+
+.newPlayLink {
+  color: #BFD8BD;
+  text-decoration: none;
+  background-color: #001A23;
+  border: 2px solid #EBF1F2;
+  padding: 0.4em;
+  border-radius: 25px;
+}
+
+.newPlayLink:hover {
+  background-color: #EBF1F2;
+}
+
+/* this css is for the search results */
+
+#searchResults {
+  margin-top: 1em;
+  text-align: center;
+}
+
+#searchResultsContent {
+  text-align: center;
+}
+
+.searchCharQuote {
+  display: inline-block;
+  color: #EBF1F2;
+}
+
+#searchResultsBorder {
+  border-top: 1px solid #BFD8BD;
+}
+
+#searchCharQuoteBorder {
+  border-bottom: 1px solid #001A23;
 }

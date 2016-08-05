@@ -81,6 +81,8 @@ post '/user' do
   user.email = params[:email]
   user.password = params[:password]
   user.admin = false
+  user.current_score = 0
+  user.high_score = 0
   user.save
 
   session[:id] = user.id
@@ -133,9 +135,10 @@ end
 ###########################
 
 post '/plays' do
+  @current_user = current_user
 
-  if !User.logged_in?(session)
-    redirect to '/session/new'
+  if !@current_user.admin?
+    redirect to '/'
   end
 
   play = Play.new
@@ -157,9 +160,10 @@ get '/plays/:id/edit' do
 end
 
 put '/plays/:id' do
+  @current_user = current_user
 
-  if !User.logged_in?(session)
-    redirect to '/session/new'
+  if !@current_user.admin?
+    redirect to '/'
   end
 
   play = Play.find(params[:id])
@@ -180,16 +184,21 @@ end
 ##############################
 
 post '/quotes' do
+  @current_user = current_user
 
-  if !User.logged_in?(session)
-    redirect to '/session/new'
+  if !@current_user.admin?
+    redirect to '/'
   end
 
   quote = Quote.new
   quote.script = params[:script]
   quote.character = params[:character]
-  quote.play_id = params[:play_id]
-  quote.save
+
+  if Play.ids.include?(params[:play_id])
+    quote.play_id = params[:play_id]
+    quote.save
+  end
+
   redirect to '/my_quotes'
 end
 
@@ -207,8 +216,10 @@ end
 
 
 put '/quotes/:id' do
-  if !User.logged_in?(session)
-    redirect to '/session/new'
+  @current_user = current_user
+
+  if !@current_user.admin?
+    redirect to '/'
   end
 
 
@@ -300,6 +311,7 @@ get '/play_game' do
   @randomPlays = (Play.all - Play.where(id: @quote.play_id)).shuffle.take(3)
   @unshuffled_list = @play_title + @randomPlays
   erb :play_game
+
 end
 
 get '/finished_game/:quote_play_id/:play_id' do
@@ -318,19 +330,44 @@ end
 
 get '/answer_correct' do
 
+  @current_user = User.find_by(id: current_user.id)
+  # current_score = current_user.current_score
+
+
   @quote = Quote.all.sample
   @play_title = Play.all.where(id: @quote.play_id)
   @randomPlays = (Play.all - Play.where(id: @quote.play_id)).shuffle.take(3)
   @unshuffled_list = @play_title + @randomPlays
 
+
+  # current_score = current_score + 1
+  user = current_user
+
+  user.current_score = user.current_score + 1
+  user.save
+
+  # current_user.save
+  # current_user.current_score = current_score
   erb :answer_correct
 end
 
 get '/answer_incorrect' do
+
+  @current_user = User.find_by(id: current_user.id)
+
   @quote = Quote.all.sample
   @play_title = Play.all.where(id: @quote.play_id)
   @randomPlays = (Play.all - Play.where(id: @quote.play_id)).shuffle.take(3)
   @unshuffled_list = @play_title + @randomPlays
+  # check new score against database
+
+  if @current_user.current_score > @current_user.high_score
+    @current_user.high_score = @current_user.current_score
+    @current_user.save
+  end
+
+  @current_user.current_score = 0
+  @current_user.save
 
   erb :answer_incorrect
 end

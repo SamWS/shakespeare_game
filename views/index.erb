@@ -1,13 +1,23 @@
-<nav id="navBar">
-  <a href="/my_plays">view plays</a>
-  <a href="/my_quotes">view quotes</a>
-  <a href="/search">search</a>
-</nav>
+<div id="indexHeadDiv">
 
-  <h2>Hello <%= @current_user.name%></h2>
-  <a href="/user/<%= @current_user.id %>">edit account</a>
+  <nav id="navBar">
+    <a class="navLink" href="/my_plays">behold plays</a>
+    <a class="navLink" href="/my_quotes">behold quotes</a>
+    <a class="navLink" href="/search">searcheth</a>
+    <a class="navLink" href="/user/<%= @current_user.id %>">changeth account</a>
+  </nav>
 
-  <h3>play the shakespeare quote game</h3>
+</div>
+
+<div id="indexPageContents">
+
+  <h2 class="indexH2">Good morrow <%= @current_user.name%>!</h2>
+
+
+  <h2 class="indexH2">playeth the shakespeare game</h2>
+  <p>This game is quite simple. A random quote from a random Shakespeare play will appear before you, with 4 options. Pick the correct one, and you'll get a point. Pick the wrong one, and you'll go back to zero. See how many you can get in a row!</p>
   <form action="/play_game">
-    <button>play</button>
+    <button id="playBtn">playeth</button>
   </form>
+
+</div>

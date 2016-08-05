@@ -1,11 +1,21 @@
 <!doctype html>
 <html lang="en">
     <head>
+    <link href='https://fonts.googleapis.com/css?family=Cabin:400,500italic' rel='stylesheet' type='text/css'>
         <meta charset="UTF-8">
         <title>Shakespeare Game</title>
         <link rel='stylesheet' href='/stylesheets/main.css'>
     </head>
     <body>
+    <div id="topOfPage">
+
+    <% if logged_in?(session) %>
+      <form action="/session" method="post">
+          <input type="hidden" name="_method" value='delete'>
+          <button id="logoutBtn">logout</button>
+      </form>
+    <% end %>
+
         <div id="headingDiv">
 
             <h1>
@@ -14,10 +24,7 @@
 
         </div>
 
-        <form action="/session" method="post">
-            <input type="hidden" name="_method" value='delete'>
-            <button id="logoutBtn">logout</button>
-        </form>
+      </div>
 
         <%= yield %>
 

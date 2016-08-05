@@ -1,18 +1,30 @@
-<form action="/user/<%= @current_user.id %>" method="post">
-  <input type="hidden" name="_method" value="put">
-  <label for="">name</label>
-  <input type="text" name="name" value="<%= @current_user.name %>">
+<div id="accountEdit">
 
-  <label for="">email</label>
-  <input type="text" name="email" value="<%= @current_user.email %>">
+<article id="editInputs">
 
-  <label for="">password</label>
-  <input type="text" name="password" value="<%= @current_user.password %>">
+  <form action="/user/<%= @current_user.id %>" method="post">
+    <input type="hidden" name="_method" value="put">
+    <label for="">name: </label>
+    <input type="text" name="name" value="<%= @current_user.name %>">
 
-  <button>update</button>
-</form>
+    <label for="">email: </label>
+    <input type="text" name="email" value="<%= @current_user.email %>">
 
-<form action="/user/<%= @current_user.id %>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button>delete</button>
-</form>
+    <label for="">password: </label>
+    <input type="text" name="password" value="<%= @current_user.password %>">
+
+    <button>update</button>
+  </form>
+
+ <div class="deleteInput">
+
+   <form action="/user/<%= @current_user.id %>" method="post">
+     <input type="hidden" name="_method" value="delete">
+     <button class="deleteBtn">delete account</button>
+   </form>
+
+ </div>
+
+</article>
+
+</div>

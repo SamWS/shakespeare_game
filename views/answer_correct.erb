@@ -1,13 +1,23 @@
-<p>you're playing the shakespeare game!</p>
 
-<p>you got it correct!</p>
-<p>
-  Quote:  "<%= @quote.script %>"
-</p>
+<div class="playGameContent">
 
-<ul>
-   <% @unshuffled_list.shuffle.each do |play| %>
-      <li>  <a id="answerLink" href="/finished_game/<%= @quote.play_id %>/<%= play.id %>"> <%= play.title %> </a> </li>
-   <% end %>
+<article class="GameContent">
 
-</ul>
+  <!-- <p class="answer">Correct!</p> -->
+
+  <p class="gameQuote">Quote:  <article class="quotePlay">"<%= @quote.script %>"</article>
+  </p>
+
+  <ul id="quoteUnordered">
+    <% @unshuffled_list.shuffle.each do |play| %>
+    <li class="quoteList">  <a id="answerLink" href="/finished_game/<%= @quote.play_id %>/<%= play.id %>"> <%= play.title %> </a> </li>
+    <% end %>
+
+  </ul>
+
+  <p class="scores"><div class="answer">CORRECT! You get a point </div> Current Score: <%= current_user.current_score %> </p>
+  <p class="scores">High Score: <%= current_user.high_score %></p>
+
+</article>
+
+</div>

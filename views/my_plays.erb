@@ -1,12 +1,20 @@
-<h1>shaka-speare</h1>
+<div class="playsPage">
 
-<% if @current_user.admin? %>
-<a href="/plays/new">new play</a>
-<% end %>
+  <h3 class="h3heading">The Plays of Shakespeare included in this game are below</h3>
 
-<% @plays.each do |play| %>
-<h3>Play: <%= play.title %></h3>
-<% if @current_user.admin? %>
-  <a href="/plays/<%= play.id %>/edit">edit play</a>
-<% end %>
-<% end %>
+  <div class="playsContent">
+
+    <% if @current_user.admin? %>
+    <a class="newPlayLink" href="/plays/new">new play</a>
+    <% end %>
+
+      <% @plays.each do |play| %>
+      <h3 class="playsQuotesList"><%= play.title %></h3>
+      <% if @current_user.admin? %>
+      <a class="playsLink" href="/plays/<%= play.id %>/edit">edit play</a>
+      <% end %>
+      <% end %>
+
+  </div>
+
+</div>

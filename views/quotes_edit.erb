@@ -1,19 +1,30 @@
+<div>
 
-<form action="/quotes/<%= @quote.id %>" method="post">
-  <input type="hidden" name="_method" value="put">
-  <label for="">play_id</label>
-  <input type="text" name="play_id" value="<%= @quote.play_id %>">
+  <div class="playQuoteInputEdit">
 
-  <label for="">script</label>
-  <input type="text" name="script" value="<%= @quote.script %>">
+    <form action="/quotes/<%= @quote.id %>" method="post">
+      <input type="hidden" name="_method" value="put">
+      <label for="">play_id: </label>
+      <input type="text" name="play_id" value="<%= @quote.play_id %>">
 
-  <label for="">character</label>
-  <input type="text" name="character" value="<%= @quote.character %>">
+      <label for="">script: </label>
+      <input type="text" name="script" value="<%= @quote.script %>">
 
-  <button>update</button>
-</form>
+      <label for="">character: </label>
+      <input type="text" name="character" value="<%= @quote.character %>">
 
-<form action="/quotes/<%= @quote.id %>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button>delete</button>
-</form>
+      <button>update</button>
+    </form>
+
+    <div class="deleteInput">
+
+      <form action="/quotes/<%= @quote.id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button class="deleteBtn">delete</button>
+      </form>
+
+    </div>
+
+
+  </div>
+</div>
