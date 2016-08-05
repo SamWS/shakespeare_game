@@ -1,23 +1,33 @@
-
 <div class="playGameContent">
 
-<article class="GameContent">
+    <article class="GameContent">
 
-  <!-- <p class="answer">Wrong!</p> -->
+        <!-- <p class="answer">Wrong!</p> -->
 
-  <p class="gameQuote">Quote:  <article class="quotePlay">"<%= @quote.script %>"</article>
-  </p>
+        <p class="gameQuote">Quote:
+            <article class="quotePlay">"<%= @quote.script %>"</article>
+        </p>
 
-  <ul id="quoteUnordered">
-    <% @unshuffled_list.shuffle.each do |play| %>
-    <li class="quoteList">  <a id="answerLink" href="/finished_game/<%= @quote.play_id %>/<%= play.id %>"> <%= play.title %> </a> </li>
-    <% end %>
+        <ul id="quoteUnordered">
+            <% @unshuffled_list.shuffle.each do |play| %>
+            <li class="quoteList">
+                <a id="answerLink" href="/finished_game/<%= @quote.play_id %>/<%= play.id %>">
+                    <%= play.title %>
+                </a>
+            </li>
+            <% end %>
 
-  </ul>
+        </ul>
 
-  <p class="scores"><div class="answer">WRONG! Sorry, back to zero </div> Current Score: <%= current_user.current_score %> </p>
-  <p class="scores">High Score: <%= current_user.high_score %></p>
+        <p class="scores">
+            <div class="answer">WRONG! Sorry, back to zero
+            </div>
+            Current Score:
+            <%= current_user.current_score %>
+        </p>
+        <p class="scores">High Score:
+            <%= current_user.high_score %></p>
 
-</article>
+    </article>
 
 </div>

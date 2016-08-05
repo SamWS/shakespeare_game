@@ -12,12 +12,13 @@ CREATE DATABASE shakespeare;
 
 CREATE TABLE plays(
   id SERIAL4 PRIMARY KEY,
-  title VARCHAR(100)
+  title VARCHAR(100),
+  user_id INTEGER
 );
 
-ALTER TABLE plays ADD user_id INTEGER;
+-- ALTER TABLE plays ADD user_id INTEGER;
 
-INSERT INTO plays (title) VALUES ('Richard III');
+INSERT INTO plays (title, user_id) VALUES ('Richard III', 1);
 
 #####
 
@@ -38,8 +39,9 @@ CREATE TABLE users(
   name VARCHAR(100) NOT NULL,
   password_digest VARCHAR(400) NOT NULL,
   high_score INTEGER,
-  admin BOOLEAN
+  admin BOOLEAN,
+  current_score INTEGER
 );
 
-ALTER TABLE users ADD current_score INTEGER;
+-- ALTER TABLE users ADD current_score INTEGER;
 -- ALTER TABLE dishes ADD user_id INTEGER;

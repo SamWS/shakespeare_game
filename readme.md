@@ -34,4 +34,4 @@ This game is very simple. Login (or sign-up), then play! Before you will appear 
 
 * [Click here to check out my wireframes.](http://imgur.com/a/KJIZe)
 * [Click here to check out my trello page for the project.](https://trello.com/b/WRu0JZEG/project2)
-* [Click here to play my game!]()
+* [Click here to play my game!](https://shakespeare-game.herokuapp.com/)

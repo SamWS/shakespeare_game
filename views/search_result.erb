@@ -1,38 +1,50 @@
 <div id="searchResultsContent">
 
-  <div id="searchResults">
+    <div id="searchResults">
 
-    <form action="/search_result">
-      <label for="search">Search Again: </label>
-      <input type="text" name="search">
+        <form action="/search_result">
+            <label for="search">Search Again:
+            </label>
+            <input type="text" name="search">
 
-      <button>search</button>
-    </form>
+            <button>search</button>
+        </form>
 
+        <h2>You searched for:
+            <div class="searchCharQuote">
+                <%= @search_params %>
+            </div>
+        </h2>
 
-    <h2>You searched for: <div class="searchCharQuote"> <%= @search_params %> </div> </h2>
+        <div id="searchResultsBorder">
 
-    <div id="searchResultsBorder">
+            <% if @relevant_quotes.empty?  %>
+            <p id="searchInvalid">Stop trying to break my code.</p>
+        <% else %>
+            <% @relevant_quotes.each do |quote| %>
 
-      <% if @relevant_quotes.empty?  %>
-      <p id="searchInvalid">Stop trying to break my code.</p>
-      <% else %>
-      <% @relevant_quotes.each do |quote| %>
+            <div id="searchCharQuoteBorder">
 
-        <div id="searchCharQuoteBorder">
+                <h4>
+                    Character who said it:
+                    <div class="searchCharQuote">
+                        <%= quote.character %>
+                    </div>
+                </h4>
+                <h3>
+                    Quote:
+                    <div class="searchCharQuote">
+                        <%= quote.script %>
+                    </div>
+                </h3>
 
-          <h4> Character who said it: <div class="searchCharQuote"> <%= quote.character %> </div> </h4>
-          <h3> Quote: <div class="searchCharQuote"> <%= quote.script %> </div>  </h3>
+            </div>
+
+            <% end %>
+            <% end %>
 
         </div>
 
-      <% end %>
-      <% end %>
-
     </div>
-
-
-  </div>
-
 
 </div>
