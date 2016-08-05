@@ -1,4 +1,4 @@
-require 'sinatra/reloader'
+# require 'sinatra/reloader'
 require 'sinatra'
 require 'active_record'
 require 'pry'
@@ -194,7 +194,7 @@ post '/quotes' do
   quote.script = params[:script]
   quote.character = params[:character]
 
-  if Play.ids.include?(params[:play_id])
+  if Play.ids.include?(params[:play_id].to_i)
     quote.play_id = params[:play_id]
     quote.save
   end
